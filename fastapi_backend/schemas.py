@@ -28,16 +28,16 @@ class FuzzyQuery(BaseModel):
     nb_max_results: int = 10
 
 
-class TranslationLanguagePair(BaseModel):
-    source_language: str
-    target_language: str
+class TranslationLanguage(BaseModel):
+    name: str
+    code: str
 
     class Config:
         from_attributes = True
 
 
 class TranslationLanguageResult(BaseModel):
-    translations: List[TranslationLanguagePair]
+    translations: List[TranslationLanguage]
 
 
 # 6 in the diagram

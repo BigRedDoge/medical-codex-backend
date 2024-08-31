@@ -1,0 +1,46 @@
+erDiagram
+    Languages ||--o{ Words : has
+    Source ||--o{ Words : has
+    Source ||--o{ Translations : has
+    Words ||--o{ Translations : "word1"
+    Words ||--o{ Translations : "word2"
+    Words ||--o{ NormalizedIdentifiers : has
+    TypeNormalizedIdentifiers ||--o{ NormalizedIdentifiers : has
+
+    Languages {
+        int id PK
+        string name UK
+        string code UK
+    }
+
+    Words {
+        int id PK
+        string word UK
+        int language_id FK
+        int source_id FK
+    }
+
+    Source {
+        int id PK
+        string name UK
+        int quality
+    }
+
+    Translations {
+        int id PK
+        int word1_id FK
+        int word2_id FK
+        int source_id FK
+    }
+
+    TypeNormalizedIdentifiers {
+        int id PK
+        string name UK
+    }
+
+    NormalizedIdentifiers {
+        int id PK
+        int word_id FK
+        int type_normalized_identifiers_id FK
+        string normalized_id UK
+    }

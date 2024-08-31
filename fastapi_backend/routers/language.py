@@ -15,4 +15,4 @@ logger = logging.getLogger(LOGGER_NAME)
 
 @router.get("/", response_model=schemas.TranslationLanguageResult)
 def get_languages(db: Session = Depends(dependancies.get_db)):
-    return db.query(models.LanguagePairs).all()
+    return db.query(models.languages).all()

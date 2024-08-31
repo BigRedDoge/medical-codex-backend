@@ -170,3 +170,5 @@ cython_debug/
 /fastapi_backend/database/codex.db
 /.azure/
 /.idea/
+/product_database/backend_codex.db
+/prepared_data/prepared_data.db
