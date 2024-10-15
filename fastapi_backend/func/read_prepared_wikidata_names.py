@@ -1,6 +1,7 @@
 import pandas as pd
 
-wikidata_names = pd.read_csv("database/wikidata_names.csv")
+wikidata_names = pd.read_csv("fastapi_backend/database/wikidata_names.csv")
+
 
 def read_prepared_wikidata_names(language) -> pd.Series:
     """

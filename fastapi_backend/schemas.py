@@ -1,18 +1,21 @@
 from typing import List
-
+from typing import Optional
 from pydantic import BaseModel
 
 
 class FuzzyResult(BaseModel):
     matching_name: str
     matching_source: str
-    matching_uid: int
+    matching_uid: Optional[int] = None
 
 
 class TranslationResult(BaseModel):
     translated_name: str
     translated_source: str
-    translated_uid: int
+    translated_uid: Optional[int] = None
+
+    class Config:
+        orm_mode = True
 
 
 # 3 in the diagram
