@@ -5,7 +5,7 @@ from func.base_levenshtein import fuzzy_levenshtein
 from func.fonetika_soundex import fonetika_soundex
 
 
-def fuzzy_matching(db: object, query: schemas.FuzzyQuery, matching_algorithm="Levenshtein") -> dict[str, list[dict[str, str | int]]]:
+def fuzzy_matching(db, query, matching_algorithm="Levenshtein"):
     list_medicine = []
     if matching_algorithm == "Levenshtein":
         try:

@@ -52,3 +52,11 @@ class Translation(BaseModel):
 class TranslationQuery(BaseModel):
     translation_query: FuzzyResult
     target_language: str
+
+class LastResort(BaseModel):
+    query: str
+    source_language: str
+    target_language: str
+
+class LastResortResponse(BaseModel):
+    translation: str
