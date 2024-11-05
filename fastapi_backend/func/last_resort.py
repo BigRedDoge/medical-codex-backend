@@ -14,8 +14,9 @@ def last_resort(query: str, source_language: str, target_language: str, retries=
     """
     llm = ChatGoogleGenerativeAI(model="models/gemini-pro", convert_system_message_to_human=True)
     prompt = PromptTemplate.from_template("""
-    Translate the following text from {source_language} to {target_language}:
-    {query}.  Output the translation as a json object with the key "translation" and the value being the translated text.
+    Translate the following medication from {source_language} to {target_language}:
+    {query}.  First convert the medication to its chemical name, then translate it to the target language.
+    Output the translation as a json object with the key "translation" and the value being the translated text.
     Do not add ```json``` to the beginning or end of the output.
     Do not add a period to the end of the word.
     """)
@@ -29,4 +30,6 @@ def last_resort(query: str, source_language: str, target_language: str, retries=
     except (KeyError, AttributeError, json.JSONDecodeError):
         if retries < 5:
             return last_resort(query, source_language, target_language, retries=retries+1)
+        else:
+            return {"translation": "No translation found."}
     return {"translation": translation}
