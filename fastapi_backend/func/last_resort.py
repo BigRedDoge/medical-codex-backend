@@ -7,6 +7,17 @@ import json
 
 dotenv.load_dotenv()
 
+
+"""
+Calls the Google Gemini API to translate a query from a source language to a target language.
+Gemini API key is stored in the .env file as GOOGLE_API_KEY.
+It uses the langchain library to call the API.
+It prompts Gemini to return the translation as a json object with the key "translation" and the value being the translated text.
+It retries the translation up to 5 times if it is not a valid json or no translation is provided.
+
+Params: query (str), source_language (str), target_language (str), retries (int)
+Return: dict with key "translation" and value being the translated text.
+"""
 def last_resort(query: str, source_language: str, target_language: str, retries=0) -> dict:
     """
     This function is a last resort to find a translation for a query.
@@ -26,10 +37,12 @@ def last_resort(query: str, source_language: str, target_language: str, retries=
         response = response.content
         res_json = json.loads(response)
         translation = res_json["translation"]
-        print(translation)
-    except (KeyError, AttributeError, json.JSONDecodeError):
+        if translation == "":
+            raise Exception("No translation found.")
+    except Exception as e:
         if retries < 5:
             return last_resort(query, source_language, target_language, retries=retries+1)
         else:
+            print("Last Resort Error: ", e)
             return {"translation": "No translation found."}
     return {"translation": translation}
